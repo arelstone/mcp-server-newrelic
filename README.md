@@ -74,7 +74,8 @@ Claude Desktop launches the server itself over stdio. Add an entry to its config
       "args": ["run", "/abs/path/to/mcp-server-newrelic/server.py:mcp"],
       "env": {
         "NEW_RELIC_API_KEY": "YOUR_API_KEY",
-        "NEW_RELIC_ACCOUNT_ID": "YOUR_ACCOUNT_ID"
+        "NEW_RELIC_ACCOUNT_ID": "YOUR_ACCOUNT_ID",
+        "NERDGRAPH_URL": "https://api.eu.newrelic.com/graphql"
       }
     }
   }
@@ -89,11 +90,12 @@ Claude Desktop launches the server itself over stdio. Add an entry to its config
     "newrelic": {
       "command": "docker",
       "args": ["run", "-i", "--rm",
-               "-e", "NEW_RELIC_API_KEY", "-e", "NEW_RELIC_ACCOUNT_ID",
+               "-e", "NEW_RELIC_API_KEY", "-e", "NEW_RELIC_ACCOUNT_ID", "-e", "NERDGRAPH_URL",
                "mcp-server-newrelic", "--transport", "stdio"],
       "env": {
         "NEW_RELIC_API_KEY": "YOUR_API_KEY",
-        "NEW_RELIC_ACCOUNT_ID": "YOUR_ACCOUNT_ID"
+        "NEW_RELIC_ACCOUNT_ID": "YOUR_ACCOUNT_ID",
+        "NERDGRAPH_URL": "https://api.eu.newrelic.com/graphql"
       }
     }
   }
@@ -102,7 +104,7 @@ Claude Desktop launches the server itself over stdio. Add an entry to its config
 
 ## Connecting Claude Code
 
-If you use the Claude Code CLI, register the server with `claude mcp add` instead of editing JSON.
+If you use the Claude Code CLI, register the server with `claude mcp add` instead of editing JSON. `NERDGRAPH_URL` is optional — omit it for US accounts (the default), or set it to the EU endpoint as shown.
 
 **Local install** (stdio, absolute paths):
 
@@ -110,6 +112,7 @@ If you use the Claude Code CLI, register the server with `claude mcp add` instea
 claude mcp add newrelic \
   -e NEW_RELIC_API_KEY=YOUR_API_KEY \
   -e NEW_RELIC_ACCOUNT_ID=YOUR_ACCOUNT_ID \
+  -e NERDGRAPH_URL=https://api.eu.newrelic.com/graphql \
   -- /abs/path/to/mcp-server-newrelic/.venv/bin/fastmcp run /abs/path/to/mcp-server-newrelic/server.py:mcp
 ```
 
@@ -119,7 +122,8 @@ claude mcp add newrelic \
 claude mcp add newrelic \
   -e NEW_RELIC_API_KEY=YOUR_API_KEY \
   -e NEW_RELIC_ACCOUNT_ID=YOUR_ACCOUNT_ID \
-  -- docker run -i --rm -e NEW_RELIC_API_KEY -e NEW_RELIC_ACCOUNT_ID mcp-server-newrelic --transport stdio
+  -e NERDGRAPH_URL=https://api.eu.newrelic.com/graphql \
+  -- docker run -i --rm -e NEW_RELIC_API_KEY -e NEW_RELIC_ACCOUNT_ID -e NERDGRAPH_URL mcp-server-newrelic --transport stdio
 ```
 
 **HTTP** (point at an already-running server):
