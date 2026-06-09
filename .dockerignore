@@ -1,0 +1,16 @@
+.git
+.gitignore
+.venv
+venv
+env
+env3.*
+__pycache__
+*.pyc
+.env
+.env.*
+.vscode
+.omc
+.claude
+*.md
+log.txt
+Pipfile.lock
